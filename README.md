@@ -18,38 +18,26 @@
 
 ## items テーブル
 
-| Column | Type   | Options     |
-| ------ | ------ | ----------- |
-| title  | string | null: false |
-| category | string |null: false |
-| price | int | null: false |
-| seller | string | null: false |
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| title    | string     | null: false                    |
+| category | string     | null: false                    |
+| price    | int        | null: false                    |
+| seller   | string     | null: false                    |
+| user     | references | null: false, foreign_key: true |
 
 ### Association
 
- has_many :room_users
- has_many :users, through: :room_users
- has_many :messages
+ has_many :comments
+ belongs_to :user
 
-## room_users テーブル
+## comments テーブル
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
+| text   | string     |                                |
 | user   | references | null: false, foreign_key: true |
-| room   | references | null: false, foreign_key: true |
-
-### Association
-
- belongs_to :room
- belongs_to :user
-
-## messages テーブル
-
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| content | string     |                                |
-| user    | references | null: false, foreign_key: true |
-| room    | references | null: false, foreign_key: true |
+| items  | references | null: false, foreign_key: true |
 
 ### Association
 
