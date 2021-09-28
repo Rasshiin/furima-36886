@@ -2,7 +2,7 @@
 
 # テーブル設計
 
-## users テーブル
+## user テーブル
 
 | Column             | Type     | Options                   |
 | ------------------ | -------- | ------------------------- |
@@ -19,7 +19,7 @@
 ### Association
 
  has_many :items
- has_many :purchase_history
+ has_many :purchase_histories
 
 ## items テーブル
 
@@ -40,7 +40,7 @@
  has_one :purchase_history
  belongs_to :user
 
-## purchase_history テーブル
+## purchase_histories テーブル
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
@@ -51,19 +51,19 @@
 ### Association
 
  belongs_to :items
- belongs_to :users
+ belongs_to :user
  has_one :residence
 
 ## residence テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| postal_code | integer | null: false                    |
-| prefecture_id | integer | null: false |
-| municipalities | string | null: false |
-| address | string | null: false |
-| building_name | string | |
-| telephone | integer | null: false
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| postal_code      | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| municipalities   | string     | null: false                    |
+| address          | string     | null: false                    |
+| building_name    | string     |                                |
+| telephone        | string     | null: false                    |
 | purchase_history | references | null: false, foreign_key: true |
 
 ### Association
