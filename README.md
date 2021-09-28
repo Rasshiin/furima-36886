@@ -19,8 +19,7 @@
 ### Association
 
  has_many :items
- has_one :purchase_history
- has_one :residence
+ has_many :purchase_history
 
 ## items テーブル
 
@@ -28,7 +27,6 @@
 | ------------------ | ---------- | ------------------------------ |
 | title              | string     | null: false                    |
 | price              | integer    | null: false                    |
-| seller             | string     | null: false                    |
 | user               | references | null: false, foreign_key: true |
 | explanation        | text       | null: false                    |
 | category_id        | integer    | null: false                    |
@@ -40,29 +38,34 @@
 ### Association
 
  has_one :purchase_history
- has_one :residence
  belongs_to :user
 
 ## purchase_history テーブル
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
-| purchase_date | datetime   | null: false                    |
 | user          | references | null: false, foreign_key: true |
 | items         | references | null: false, foreign_key: true |
+
 
 ### Association
 
  belongs_to :items
  belongs_to :users
+ has_one :residence
 
 ## residence テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| address | string     | null: false                    |
-| user    | references | null: false, foreign_key: true |
+| postal_code | integer | null: false                    |
+| prefecture_id | integer | null: false |
+| municipalities | string | null: false |
+| address | string | null: false |
+| building_name | string | |
+| telephone | integer | null: false
+| purchase_history | references | null: false, foreign_key: true |
 
 ### Association
 
- belongs_to :users
+ belongs_to :purchase_history
