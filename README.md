@@ -13,7 +13,7 @@
 | email              | string   | null: false, unique: true |
 | encrypted_password | string   | null: false               |
 | nickname           | string   | null: false               |
-| birthday           | datetime | null: false               |
+| birthday           | date     | null: false               |
 
 
 ### Association
@@ -32,7 +32,7 @@
 | category_id        | integer    | null: false                    |
 | postage_load_id    | integer    | null: false                    |
 | items_condition_id | integer    | null: false                    |
-| shipment_source_id | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | shipment_day_id    | integer    | null: false                    |
 
 ### Association
@@ -45,12 +45,12 @@
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | user          | references | null: false, foreign_key: true |
-| items         | references | null: false, foreign_key: true |
+| item          | references | null: false, foreign_key: true |
 
 
 ### Association
 
- belongs_to :items
+ belongs_to :item
  belongs_to :user
  has_one :residence
 
@@ -59,7 +59,6 @@
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | postal_code      | string     | null: false                    |
-| prefecture_id    | integer    | null: false                    |
 | municipalities   | string     | null: false                    |
 | address          | string     | null: false                    |
 | building_name    | string     |                                |
