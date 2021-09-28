@@ -7,7 +7,9 @@
 | Column             | Type     | Options                   |
 | ------------------ | -------- | ------------------------- |
 | family_name        | string   | null: false               |
+| family_name_kana   | string   | null: false               |
 | first_name         | string   | null: false               |
+| first_name_kana    | string   | null: false               |
 | email              | string   | null: false, unique: true |
 | encrypted_password | string   | null: false               |
 | nickname           | string   | null: false               |
@@ -17,37 +19,50 @@
 ### Association
 
  has_many :items
- has_many :comments
+ has_one :purchase_history
+ has_one :residence
 
 ## items テーブル
 
-| Column          | Type       | Options                        |
-| --------------- | ---------- | ------------------------------ |
-| title           | string     | null: false                    |
-| category        | string     | null: false                    |
-| price           | int        | null: false                    |
-| seller          | string     | null: false                    |
-| user            | references | null: false, foreign_key: true |
-| items_status    | string     | null: false                    |
-| explanation     | text       | null: false                    |
-| shipment_source | string     | null: false                    |
-| postage         | string     | null: false                    |
-| shipment        | datetime   | null: false                    |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| title              | string     | null: false                    |
+| price              | integer    | null: false                    |
+| seller             | string     | null: false                    |
+| user               | references | null: false, foreign_key: true |
+| explanation        | text       | null: false                    |
+| category_id        | integer    | null: false                    |
+| postage_load_id    | integer    | null: false                    |
+| items_condition_id | integer    | null: false                    |
+| shipment_source_id | integer    | null: false                    |
+| shipment_day_id    | integer    | null: false                    |
 
 ### Association
 
- has_many :comments
+ has_one :purchase_history
+ has_one :residence
  belongs_to :user
 
-## comments テーブル
+## purchase_history テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| text   | text       |                                |
-| user   | references | null: false, foreign_key: true |
-| items  | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| purchase_date | datetime   | null: false                    |
+| user          | references | null: false, foreign_key: true |
+| items         | references | null: false, foreign_key: true |
 
 ### Association
 
- belongs_to :room
- belongs_to :user
+ belongs_to :items
+ belongs_to :users
+
+## residence テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| address | string     | null: false                    |
+| user    | references | null: false, foreign_key: true |
+
+### Association
+
+ belongs_to :users
