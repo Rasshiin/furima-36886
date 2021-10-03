@@ -8,13 +8,16 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  
   validates :title, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
   validates :explanation, presence: true
-  validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :items_condition_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :postage_load_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :shipment_day_id, numericality: { other_than: 1 , message: "can't be blank"}
   validates :image, presence: true
+  with_options presence: true, numericality: { other_than: 1 , message: "can't be blank" } do
+    validates :category_id
+    validates :items_condition_id
+    validates :postage_load_id
+    validates :prefecture_id
+    validates :shipment_day_id
+  end
 end
