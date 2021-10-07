@@ -69,9 +69,9 @@ RSpec.describe Order, type: :model do
         expect(@order.errors.full_messages).to include("Telephone is invalid")
       end
       it '電話番号が９桁以下では購入できない' do
-        @order.telephone "070123456"
+        @order.telephone = "070123456"
         @order.valid?
-        expect(@order.errors.full_messages)
+        expect(@order.errors.full_messages).to include("")
       end
       it 'トークンが空では購入できない' do
         @order.token = ""
