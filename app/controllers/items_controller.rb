@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
-  before_action :set_prototype, only: [:edit, :update, :show, :destroy]
+  before_action :set_items, only: [:edit, :update, :show, :destroy]
   before_action :move_to_index, only: [:edit, :update, :destroy]
 
   def index
@@ -45,12 +45,12 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:title, :image, :price, :explanation, :category_id, :items_condition_id, :postage_load_id, :prefecture_id, :shipment_day_id,).merge(user_id: current_user.id)
   end
 
-  def set_prototype
+  def set_items
     @item = Item.find(params[:id])
   end
 
   def move_to_index
-    unless user_signed_in? && current_user.id == @item.user_id
+    if current_user.id != @item.user_id || @item.purchase_history != nil
       redirect_to root_path
     end
   end
