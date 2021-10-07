@@ -74,7 +74,7 @@ RSpec.describe Order, type: :model do
         expect(@order.errors.full_messages).to include("Telephone is invalid")
       end
       it '電話番号が12桁以上では購入できない' do
-        @order.telephone = "012345678900"
+        @order.telephone = "012345678912"
         @order.valid?
         expect(@order.errors.full_messages).to include("Telephone is invalid")
       end
@@ -82,6 +82,16 @@ RSpec.describe Order, type: :model do
         @order.token = ""
         @order.valid?
         expect(@order.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空だと登録できない' do
+        @order.user_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと登録できない' do
+        @order.item_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
