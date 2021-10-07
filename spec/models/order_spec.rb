@@ -76,7 +76,7 @@ RSpec.describe Order, type: :model do
       it '電話番号が12桁以上では購入できない' do
         @order.telephone = "012345678900"
         @order.valid?
-        expect(@order.errors.full_messages).to include("")
+        expect(@order.errors.full_messages).to include("Telephone is invalid")
       end
       it 'トークンが空では購入できない' do
         @order.token = ""
