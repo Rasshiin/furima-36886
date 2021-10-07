@@ -1,13 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_prototype
+  before_action :move_to_index
+
   def index
-    @item = Item.find(params[:item_id])
-    # 今までのnewアクションに該当する処理を記述
     @order = Order.new
   end
 
   def create
     @order = Order.new(order_params)
-    @item = Item.find(params[:item_id])
     if @order.valid?
       pay_item
       @order.save
@@ -24,11 +25,21 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_9da7489b85c0d02ad7d91bf3"
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def set_prototype
+    @item = Item.find(params[:item_id])
+  end
+
+  def move_to_index
+    unless user_signed_in? && current_user.id != @item.user_id
+      redirect_to root_path
+    end
   end
 end

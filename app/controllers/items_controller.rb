@@ -21,6 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @items = Item.all
   end
 
   def edit

@@ -9,7 +9,7 @@ RSpec.describe Order, type: :model do
   end
   describe '商品購入' do
     context '商品購入できるとき' do
-      it '郵便番号と都道府県と市町村と番地と建物名と電話番号があれば購入できる' do
+      it '郵便番号と都道府県と市町村と番地と建物名と電話番号とトークンがあれば購入できる' do
         expect(@order).to be_valid
       end
       it '建物名がなくても購入できる' do
@@ -67,6 +67,11 @@ RSpec.describe Order, type: :model do
         @order.telephone = "qawsedrftgy"
         @order.valid?
         expect(@order.errors.full_messages).to include("Telephone is invalid")
+      end
+      it 'トークンが空では購入できない' do
+        @order.token = ""
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
