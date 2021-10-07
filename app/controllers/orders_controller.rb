@@ -38,8 +38,9 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    unless user_signed_in? && current_user.id != @item.user_id
+    if current_user.id == @item.user_id || @item.purchase_history
       redirect_to root_path
     end
   end
 end
+# トップページに遷移する　もし、今ログインしているユーザーと出品者が同じ　購入履歴が存在する場合
