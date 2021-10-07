@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_prototype
+  before_action :set_orders
   before_action :move_to_index
 
   def index
@@ -33,14 +33,13 @@ class OrdersController < ApplicationController
     )
   end
 
-  def set_prototype
+  def set_orders
     @item = Item.find(params[:item_id])
   end
 
   def move_to_index
-    if current_user.id == @item.user_id || @item.purchase_history
+    if current_user.id == @item.user_id || @item.purchase_history != nil
       redirect_to root_path
     end
   end
 end
-# トップページに遷移する　もし、今ログインしているユーザーと出品者が同じ　購入履歴が存在する場合
