@@ -4,7 +4,7 @@ class Order
 
   validates :postal_code, presence: true, format:{with:/\A\d{3}[-]\d{4}\z/}
   validates :municipalities, presence: true
-  validates :telephone, presence: true, format:{with:/\A^0\d{9,10}\z/}
+  validates :telephone, presence: true, format:{with:/\A\d[0-9]{9,10}\z/}
   validates :prefecture_id, presence: true, numericality: { other_than: 1 , message: "can't be blank" }
   validates :address, presence: true
   validates :token, presence: true
