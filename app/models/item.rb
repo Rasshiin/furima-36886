@@ -14,7 +14,7 @@ class Item < ApplicationRecord
   validates :price, numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
   validates :explanation, presence: true
   validates :image, presence: true
-  with_options presence: true, numericality: { other_than: 1 , message: "選択されていません" } do
+  with_options presence: true, numericality: { other_than: 1 , message: "が選択されていません" } do
     validates :category_id
     validates :items_condition_id
     validates :postage_load_id
