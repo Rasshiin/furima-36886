@@ -64,6 +64,7 @@
 | building_name    | string     |                                |
 | telephone        | string     | null: false                    |
 | purchase_history | references | null: false, foreign_key: true |
+| prefecture_id    | integer    | null: false                    |
 
 ### Association
 
